@@ -1,25 +1,30 @@
-import logo from './logo.svg';
 import './App.css';
-
+import MainComp from './MainComp';
+import Form from './Form';
+import Nav from './Nav';
+import { useState } from 'react';
+import {Link} from 'react-router-dom';
+import {Routes,Route} from 'react-router-dom'
 function App() {
+  const [login,setLogin] = useState("Save");
+  const play = ()=>{
+    document.querySelector('#formSub').style.opacity = "1";
+  }
+  const done = ()=>{
+    document.querySelector('#formSub').style.opacity = "0";
+    setLogin("Save"); 
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <button id="log"><Link to="/log" id="link"  onClick={play}>{login}</Link></button>
+      <Nav />
+      <Routes>
+        <Route path = "/" element = {<MainComp />} />
+        <Route path = "/log" element = {<Form />} />
+        <Route path="/submit" element={<MainComp />} />
+      </Routes>
+      <button id="formSub"><Link to="/submit" onClick={done} id="toDo">Submit</Link></button>
+    </>
   );
 }
-
 export default App;
